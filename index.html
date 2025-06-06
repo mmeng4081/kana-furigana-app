@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>かな注音変換</title>
+    <style>
+        body { font-family: sans-serif; padding: 1em; background: #f0f5f3; }
+        textarea, button { width: 100%; margin-top: 1em; font-size: 1em; }
+        ruby rt { font-size: 0.6em; color: #555; }
+    </style>
+</head>
+<body>
+    <h2>日文假名標注</h2>
+    <textarea id="input" rows="4" placeholder="ここに日本語を入力..."></textarea>
+    <button onclick="convert()">標註平假名</button>
+    <div id="output"></div>
+
+    <script>
+        async function convert() {
+            const text = document.getElementById('input').value;
+            const res = await fetch('/convert', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+            const data = await res.json();
+            document.getElementById('output').innerHTML = data.html;
+        }
+    </script>
+</body>
+</html>
