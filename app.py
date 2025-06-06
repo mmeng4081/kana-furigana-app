@@ -16,10 +16,9 @@ def convert():
     result = ""
     for word in words:
         surface = word.surface
-        # feature[7] 通常是讀音（reading）
-        reading = ""
-        if len(word.feature) >= 8:
-            reading = word.feature[7]
+        features = word.feature
+        reading = features.get("Reading")
+        # 使用詞的整體讀音來標註整詞
         if reading and reading != surface:
             result += f"<ruby>{surface}<rt>{reading}</rt></ruby>"
         else:
