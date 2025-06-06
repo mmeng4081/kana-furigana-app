@@ -1,3 +1,4 @@
 flask
-fugashi[unidic-lite]
 gunicorn
+fugashi
+unidic-lite
