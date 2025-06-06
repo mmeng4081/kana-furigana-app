@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify, send_from_directory
 import fugashi
 
@@ -17,7 +16,10 @@ def convert():
     result = ""
     for word in words:
         surface = word.surface
-        reading = word.feature.get("Reading") or ""
+        # feature[7] 通常是讀音（reading）
+        reading = ""
+        if len(word.feature) >= 8:
+            reading = word.feature[7]
         if reading and reading != surface:
             result += f"<ruby>{surface}<rt>{reading}</rt></ruby>"
         else:
