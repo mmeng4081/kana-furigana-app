@@ -16,9 +16,10 @@ def convert():
     result = ""
     for word in words:
         surface = word.surface
-        features = word.feature
-        reading = features.get("Reading")
-        # 使用詞的整體讀音來標註整詞
+        try:
+            reading = word.feature[6]  # 第 7 欄通常是 Reading
+        except IndexError:
+            reading = ""
         if reading and reading != surface:
             result += f"<ruby>{surface}<rt>{reading}</rt></ruby>"
         else:
